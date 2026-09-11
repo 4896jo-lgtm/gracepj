@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>做一顆蛋糕，測出你的職場人格</title>
+<style>
+  :root{
+    --ink:#3A2E24;
+    --muted:#8A7A68;
+    --muted-soft:#B5A48D;
+    --card:#FFFDF9;
+    --line:#EDE3D3;
+    --btn:#FBF7EF;
+    --accent:#C89968;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    font-family:-apple-system, "PingFang TC", "Heiti TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+    background:linear-gradient(160deg, #FBF3EC 0%, #F5E4D8 55%, #F0DCE0 100%);
+    min-height:100vh;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    padding:24px 16px;
+    color:var(--ink);
+  }
+  .panel{
+    width:100%;
+    max-width:440px;
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:24px;
+    box-shadow:0 8px 30px rgba(107,91,79,0.12);
+    padding:32px 28px;
+  }
+  .screen{ animation:fade .4s ease; }
+  @keyframes fade{ from{opacity:0; transform:translateY(8px);} to{opacity:1; transform:translateY(0);} }
+
+  /* intro */
+  .center{ text-align:center; }
+  .intro-emoji{ font-size:56px; margin-bottom:8px; }
+  h1.title{ font-size:23px; font-weight:700; margin:0 0 10px; line-height:1.5; }
+  p.subtitle{ color:var(--muted); font-size:14px; line-height:1.8; margin:0 0 20px; }
+  .legend{ font-size:12px; color:var(--muted-soft); line-height:2.1; margin-bottom:26px; }
+  .btn-main{
+    background:var(--accent); color:#FFFDF9; border:none; border-radius:999px;
+    padding:13px 34px; font-size:15px; font-weight:700; cursor:pointer;
+    font-family:inherit;
+  }
+  .btn-main:active{ transform:scale(.97); }
+  .btn-main:focus-visible{ outline:3px solid #EAD9C2; outline-offset:3px; }
+
+  /* cake layers preview */
+  .cake-wrap{ display:flex; justify-content:center; margin-bottom:14px; }
+  .cake{ display:flex; flex-direction:column-reverse; align-items:center; min-height:150px; justify-content:flex-end; }
+  .plate{ width:150px; height:10px; border-radius:50%; background:#D9CFC0; margin-top:4px; }
+  .layer{ height:16px; border-radius:6px; margin-bottom:-2px; box-shadow:inset 0 -4px 0 rgba(0,0,0,0.08); transition:all .4s ease; }
+
+  /* question */
+  .step-count{ font-size:12px; color:var(--muted-soft); text-align:center; margin-bottom:4px; }
+  h2.qtitle{ font-size:19px; font-weight:700; text-align:center; margin:0 0 4px; }
+  p.qsubtitle{ font-size:13px; color:var(--muted); text-align:center; margin:0 0 20px; }
+  .option{
+    display:block; width:100%; text-align:left; background:var(--btn);
+    border:1px solid var(--line); border-radius:14px; padding:14px 16px;
+    margin-bottom:12px; cursor:pointer; font-family:inherit;
+  }
+  .option:active{ transform:scale(.98); }
+  .option:hover{ border-color:var(--accent); }
+  .option:focus-visible{ outline:3px solid #EAD9C2; outline-offset:2px; }
+  .opt-title{ font-weight:700; font-size:14.5px; color:var(--ink); }
+  .opt-desc{ font-size:12.5px; color:#9A8C77; margin-top:3px; line-height:1.5; }
+
+  /* result */
+  .result-tag{ font-size:12px; color:var(--muted-soft); margin-bottom:10px; }
+  .badge{
+    width:150px; height:150px; border-radius:50%; margin:0 auto 14px;
+    display:flex; align-items:center; justify-content:center; font-size:76px;
+    box-shadow:0 18px 34px -10px rgba(58,46,36,0.4);
+    animation:pop .5s cubic-bezier(.34,1.56,.64,1);
+  }
+  @keyframes pop{ 0%{ transform:scale(.4) rotate(-8deg); opacity:0;} 100%{ transform:scale(1) rotate(0); opacity:1;} }
+  h2.rtitle{ font-size:23px; font-weight:700; margin:0 0 2px; }
+  .rsubtitle{ font-size:12.5px; color:var(--muted-soft); margin-bottom:16px; }
+  .rdesc{
+    font-size:13.5px; line-height:1.85; text-align:left; background:var(--btn);
+    border-radius:14px; padding:14px 16px; margin-bottom:18px;
+  }
+  .block{ text-align:left; margin-bottom:14px; }
+  .block-title{ font-size:12.5px; font-weight:700; margin-bottom:6px; }
+  ul.strengths{ margin:0; padding-left:18px; font-size:13px; line-height:1.9; }
+  .watch-box{ background:#F3E9DA; border-radius:12px; padding:10px 14px; }
+  .watch-text{ font-size:12.5px; line-height:1.7; color:#5C4E3F; }
+  .roles-text{ font-size:12.5px; color:#5C4E3F; }
+  .btn-outline{
+    background:transparent; border:1.5px solid var(--accent); color:var(--accent);
+    border-radius:999px; padding:10px 28px; font-size:14px; font-weight:700;
+    cursor:pointer; font-family:inherit;
+  }
+  .btn-outline:focus-visible{ outline:3px solid #EAD9C2; outline-offset:2px; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration:.001ms !important; transition-duration:.001ms !important; }
+  }
+</style>
+</head>
+<body>
+<div class="panel" id="panel"></div>
+
+<script>
+const STEPS = [
+  { id:"base", title:"第一步：選蛋糕基底", subtitle:"接到一個新任務，你會怎麼開始？", layerColor:"#F4C9C0",
+    options:[
+      { text:"經典海綿蛋糕", desc:"先照標準配方做，穩了再說", scores:{steady:2} },
+      { text:"試試沒做過的口味", desc:"反正機會難得，玩玩看新東西", scores:{creative:2} },
+      { text:"先問問大家想吃什麼", desc:"做出來要有人捧場才有意義", scores:{social:2} },
+      { text:"先想清楚為什麼做、做給誰吃", desc:"目的想清楚了，做法自然會跟著調整", scores:{strategist:2} }
+    ]},
+  { id:"measure", title:"第二步：秤配料", subtitle:"麵粉、糖、奶油，你怎麼抓比例？", layerColor:"#B8CCA0",
+    options:[
+      { text:"電子秤精準秤到公克", desc:"誤差一克都不放過", scores:{detail:2} },
+      { text:"憑手感跟經驗抓", desc:"做久了就知道大概多少", scores:{creative:1, steady:1} },
+      { text:"先把大家要用的料都備好", desc:"備料備齊，後面才不會手忙腳亂", scores:{support:2} }
+    ]},
+  { id:"oven", title:"第三步：顧爐火", subtitle:"蛋糕在烤箱裡，你會怎麼盯著它？", layerColor:"#EAD9A0",
+    options:[
+      { text:"設好計時器，時間到才開", desc:"按表操課最不容易出錯", scores:{steady:1, detail:1} },
+      { text:"每隔幾分鐘開燈看一下狀況", desc:"不太放心，想隨時掌握進度", scores:{detail:2} },
+      { text:"趁烤的時候去處理別的事", desc:"同時手上還有別的東西要顧", scores:{integrate:2} },
+      { text:"先想好幾種可能的結果，提前沙盤推演", desc:"與其臨時反應，不如先想好各種劇本", scores:{strategist:2} }
+    ]},
+  { id:"mistake", title:"第四步：麵糊出狀況", subtitle:"麵糊突然太稀，快要撐不起來了", layerColor:"#E8985E",
+    options:[
+      { text:"翻出食譜找補救步驟", desc:"一定有標準做法可以救回來", scores:{steady:2, crisis:1} },
+      { text:"當場加點別的東西試試看", desc:"先動手，邊做邊調整", scores:{crisis:2, creative:1} },
+      { text:"找旁邊比較懂的人一起想辦法", desc:"一個人想不如大家一起想", scores:{integrate:2} },
+      { text:"先想這狀況會不會影響最終想呈現的成果", desc:"救不救得回來不是重點，有沒有偏離目標才是", scores:{strategist:2} }
+    ]},
+  { id:"time", title:"第五步：時間快來不及了", subtitle:"離約定時間只剩下不多的時間，你會？", layerColor:"#C9A876",
+    options:[
+      { text:"重新排一次剩下的步驟順序", desc:"先想清楚，再動手比較不會亂", scores:{steady:1, detail:1} },
+      { text:"先把最重要的部分顧好", desc:"抓大放小，先求核心完成", scores:{crisis:2} },
+      { text:"分工，請人幫忙處理一部分", desc:"自己一個人做不完，就找人分擔", scores:{integrate:1, support:1} },
+      { text:"重新評估，調整這次真正想達成的目標", desc:"時間有限，先確認什麼才是真正重要的", scores:{strategist:2} }
+    ]},
+  { id:"decorate", title:"第六步：裝飾蛋糕", subtitle:"終於要出爐了，你想怎麼呈現它？", layerColor:"#A97C9E",
+    options:[
+      { text:"簡單灑點糖粉，乾淨就好", desc:"低調，實力自己會說話", scores:{support:2} },
+      { text:"花點心思擺盤出造型", desc:"想做出讓人記得住的東西", scores:{creative:2} },
+      { text:"每一處都對稱、抹得很平整", desc:"看起來不夠精緻會渾身不對勁", scores:{detail:2} }
+    ]},
+  { id:"help", title:"第七步：有人主動說要幫忙", subtitle:"旁邊的人問你要不要幫一把，你會？", layerColor:"#8C9B7A",
+    options:[
+      { text:"謝謝，但這部分我自己來就好", desc:"自己做才放心，也不想麻煩人", scores:{steady:1, detail:1} },
+      { text:"好啊，順便交給他負責一部分", desc:"分工清楚，各司其職效率更好", scores:{integrate:2} },
+      { text:"順勢聊起來，邊做邊閒聊", desc:"一起做的過程本身就很開心", scores:{social:2} }
+    ]},
+  { id:"finish", title:"第八步：蛋糕完成了", subtitle:"看著成品，你的第一個念頭是？", layerColor:"#7A5443",
+    options:[
+      { text:"紀錄這次做法，下次更好", desc:"每次都要比上次進步", scores:{steady:1, detail:1} },
+      { text:"拍照發出去，看大家怎麼說", desc:"做出來的東西就是要分享", scores:{social:2} },
+      { text:"先確認每個人都吃得到、吃得開心", desc:"比起自己吃到，更在意大家有沒有分到", scores:{support:2} },
+      { text:"想這次經驗能為下一次的規劃帶來什麼啟發", desc:"比起這次的成果，你更在意能帶走什麼", scores:{strategist:2} }
+    ]}
+];
+
+const RESULTS = {
+  steady:{ emoji:"🍰", title:"穩紮穩打型", subtitle:"海綿蛋糕人格",
+    desc:"你做事靠的是紮實的流程，不喜歡把成敗賭在運氣上。SOP 對你來說不是束縛，而是讓結果可預期的工具。",
+    strengths:["流程掌控力強","交付品質穩定","值得託付重要任務"],
+    watch:"有時候太謹慎會錯過快速應變的時機，可以練習在關鍵時刻放手一搏。",
+    roles:"專案管理、流程優化、品質控管、採購執行",
+    gradient:["#B8CCA0","#5C7A5C"] },
+  creative:{ emoji:"🧁", title:"創意實驗型", subtitle:"限定口味人格",
+    desc:"你享受在既有框架外找新解法，重複做同一件事會讓你感到無聊。風險對你來說是探索的成本，不是要避開的東西。",
+    strengths:["提案有創意","願意嘗試新方法","推動改變的第一人"],
+    watch:"太常求新可能讓結果不穩定，記得幫每次實驗留一個備案。",
+    roles:"產品開發、創新提案、新方案評估、AI工具導入",
+    gradient:["#F7B2D9","#9B5FA0"] },
+  crisis:{ emoji:"🎂", title:"危機處理型", subtitle:"翻車救援人格",
+    desc:"你在平常可能不顯眼，但一遇到出狀況，你反而會冷靜下來、快速找到解法。壓力對你是啟動開關，不是威脅。",
+    strengths:["臨場應變快","抗壓性高","危機時刻的定海神針"],
+    watch:"平時如果沒有壓力，容易拖延，可以幫自己設一些小的緊迫感。",
+    roles:"談判、客戶服務、供應鏈突發應變、緊急採購處理",
+    gradient:["#F4A9A8","#D9622B"] },
+  social:{ emoji:"🍩", title:"團隊發光型", subtitle:"分享款待人格",
+    desc:"對你來說，成果的意義是在被別人看見、被使用的那一刻才完整。你做事會不自覺考慮到其他人的感受跟反應。",
+    strengths:["人際敏感度高","擅長凝聚團隊","天生的溝通橋樑"],
+    watch:"太在意別人的評價，有時候會讓你猶豫該不該堅持自己的判斷。",
+    roles:"業務、公關、內部溝通協調、商務談判",
+    gradient:["#FFD1D6","#D97B85"] },
+  support:{ emoji:"🍞", title:"默默支援型", subtitle:"吐司底座人格",
+    desc:"你不一定站在最前面，但整個團隊少了你會很快亂掉。你在意的是事情有沒有真的被做好，而不是誰看到了。",
+    strengths:["可靠度極高","願意做吃力不討好的事","團隊的穩定基礎"],
+    watch:"太少表達自己的貢獻，容易被忽略，可以練習適度讓人看見你的努力。",
+    roles:"行政後勤、財務支援、內部作業、流程執行",
+    gradient:["#EAD9A0","#B08D5C"] },
+  detail:{ emoji:"🍮", title:"細節控制型", subtitle:"布丁精修人格",
+    desc:"差一點就是不行。你對品質有近乎直覺的敏感度，能看到別人容易忽略的小問題，也因此常是最後一道把關的人。",
+    strengths:["精準度高","容錯率低","品質最後防線"],
+    watch:"太執著於完美可能拖慢速度，練習判斷哪些細節真的值得花時間。",
+    roles:"品質控管、合約審核、財會、驗收把關",
+    gradient:["#F7E7A0","#C7A03E"] },
+  integrate:{ emoji:"🥐", title:"資源整合型", subtitle:"千層可頌人格",
+    desc:"你擅長的不是單打獨鬥，而是看清楚誰擅長什麼、怎麼把不同的人跟資源兜在一起，讓整件事順暢地跑起來。",
+    strengths:["跨部門溝通強","擅長分工與調度","把複雜的事理順"],
+    watch:"容易把太多協調工作攬在自己身上，記得也要幫自己留時間喘口氣。",
+    roles:"專案協調、供應鏈管理、跨部門溝通、資源調度",
+    gradient:["#BFD8EE","#6B8CAE"] },
+  strategist:{ emoji:"🍫", title:"戰略布局型", subtitle:"提拉米蘇人格",
+    desc:"你做每件事之前，習慣先想清楚『為什麼做』跟『做給誰看』。比起把眼前的步驟做完，你更在意這件事在更大的藍圖裡佔什麼位置。",
+    strengths:["看得到全局","擅長設定優先順序","決策前想得比別人遠"],
+    watch:"有時候想太多反而遲遲不動手，記得有些答案只有做了才會知道。",
+    roles:"策略規劃、專案負責人、供應商年度合約談判、跨年度採購布局",
+    gradient:["#D9AAB8","#6B3F4D"] }
+};
+
+function initScores(){
+  return { steady:0, creative:0, crisis:0, social:0, support:0, detail:0, integrate:0, strategist:0 };
+}
+function getResultKey(scores){
+  let best="steady", bestScore=-1;
+  for(const k of Object.keys(scores)){ if(scores[k]>bestScore){ bestScore=scores[k]; best=k; } }
+  return best;
+}
+
+let stepIndex = -1;
+let scores = initScores();
+let layers = [];
+let done = false;
+
+const panel = document.getElementById('panel');
+
+function cakeHTML(){
+  const layerDivs = layers.map((color,i) =>
+    `<div class="layer" style="width:${116 - i*3}px; background:${color};"></div>`
+  ).join('');
+  return `<div class="cake-wrap"><div class="cake">${layerDivs}<div class="plate"></div></div></div>`;
+}
+
+function renderIntro(){
+  panel.innerHTML = `
+    <div class="screen center">
+      <div class="intro-emoji">🎂</div>
+      <h1 class="title">做一顆蛋糕，測出你的職場人格</h1>
+      <p class="subtitle">從基底、配料到裝飾，每一個選擇都藏著你面對工作的真實習慣。<br>8 個步驟，8 種人格，看看你做出來的是哪一種人。</p>
+      <div class="legend">
+        🍰 穩紮穩打　🍫 戰略布局　🧁 創意實驗　🎂 危機處理<br>
+        🍩 團隊發光　🍞 默默支援　🍮 細節控制　🥐 資源整合
+      </div>
+      <button class="btn-main" id="startBtn">開始做蛋糕</button>
+    </div>`;
+  document.getElementById('startBtn').onclick = () => { stepIndex = 0; renderQuestion(); };
+}
+
+function renderQuestion(){
+  const s = STEPS[stepIndex];
+  panel.innerHTML = `
+    <div class="screen">
+      ${cakeHTML()}
+      <div class="step-count">步驟 ${stepIndex+1} / ${STEPS.length}</div>
+      <h2 class="qtitle">${s.title}</h2>
+      <p class="qsubtitle">${s.subtitle}</p>
+      <div id="opts"></div>
+    </div>`;
+  const opts = document.getElementById('opts');
+  s.options.forEach(opt => {
+    const btn = document.createElement('button');
+    btn.className = 'option';
+    btn.innerHTML = `<div class="opt-title">${opt.text}</div><div class="opt-desc">${opt.desc}</div>`;
+    btn.onclick = () => handleChoice(opt);
+    opts.appendChild(btn);
+  });
+}
+
+function handleChoice(option){
+  for(const k of Object.keys(option.scores)){
+    scores[k] = (scores[k] || 0) + option.scores[k];
+  }
+  layers.push(STEPS[stepIndex].layerColor);
+
+  if(stepIndex + 1 < STEPS.length){
+    stepIndex++;
+    renderQuestion();
+  }else{
+    done = true;
+    renderResult();
+  }
+}
+
+function renderResult(){
+  const key = getResultKey(scores);
+  const r = RESULTS[key];
+  panel.innerHTML = `
+    <div class="screen center">
+      ${cakeHTML()}
+      <div class="result-tag">你的蛋糕完成了</div>
+      <div class="badge" style="background:linear-gradient(135deg, ${r.gradient[0]}, ${r.gradient[1]})">${r.emoji}</div>
+      <h2 class="rtitle" style="color:${r.gradient[1]}">${r.title}</h2>
+      <div class="rsubtitle">${r.subtitle}</div>
+      <p class="rdesc">${r.desc}</p>
+      <div class="block">
+        <div class="block-title">💪 你的強項</div>
+        <ul class="strengths">${r.strengths.map(s=>`<li>${s}</li>`).join('')}</ul>
+      </div>
+      <div class="block watch-box">
+        <div class="block-title">🔍 提醒自己</div>
+        <div class="watch-text">${r.watch}</div>
+      </div>
+      <div class="block">
+        <div class="block-title">🎯 適合角色</div>
+        <div class="roles-text">${r.roles}</div>
+      </div>
+      <button class="btn-outline" id="restartBtn">再做一次</button>
+    </div>`;
+  document.getElementById('restartBtn').onclick = restart;
+}
+
+function restart(){
+  stepIndex = -1;
+  scores = initScores();
+  layers = [];
+  done = false;
+  renderIntro();
+}
+
+renderIntro();
+</script>
+</body>
+</html>
