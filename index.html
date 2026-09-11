@@ -94,9 +94,6 @@
   .watch-box{ background:#F3E9DA; border-radius:12px; padding:10px 14px; }
   .watch-text{ font-size:12.5px; line-height:1.7; color:#5C4E3F; }
   .roles-text{ font-size:12.5px; color:#5C4E3F; }
-  .radar-wrap{ display:flex; justify-content:center; margin-bottom:6px; }
-  .compat-box{ background:#EFF5EC; border-radius:12px; padding:10px 14px; }
-  .compat-text{ font-size:12.5px; line-height:1.7; color:#3E4A38; }
   .btn-outline{
     background:transparent; border:1.5px solid var(--accent); color:var(--accent);
     border-radius:999px; padding:10px 28px; font-size:14px; font-weight:700;
@@ -175,98 +172,50 @@ const RESULTS = {
     strengths:["流程掌控力強","交付品質穩定","值得託付重要任務"],
     watch:"有時候太謹慎會錯過快速應變的時機，可以練習在關鍵時刻放手一搏。",
     roles:"專案管理、流程優化、品質控管、採購執行",
-    compat:"給他明確的截止日期跟需求規格，他會按部就班完成；避免臨時大幅度更改計畫，這會讓他很不安。",
-    traits:[5,2,2,4,3,4],
     gradient:["#B8CCA0","#5C7A5C"] },
   creative:{ emoji:"🧁", title:"創意實驗型", subtitle:"限定口味人格",
     desc:"你享受在既有框架外找新解法，重複做同一件事會讓你感到無聊。風險對你來說是探索的成本，不是要避開的東西。",
     strengths:["提案有創意","願意嘗試新方法","推動改變的第一人"],
     watch:"太常求新可能讓結果不穩定，記得幫每次實驗留一個備案。",
     roles:"產品開發、創新提案、新方案評估、AI工具導入",
-    compat:"多給他一些發揮空間和開放式的題目，太死板的SOP會讓他綁手綁腳；接受他的提案時，具體回饋哪裡好、哪裡需要修正。",
-    traits:[2,5,3,3,3,2],
     gradient:["#F7B2D9","#9B5FA0"] },
   crisis:{ emoji:"🎂", title:"危機處理型", subtitle:"翻車救援人格",
     desc:"你在平常可能不顯眼，但一遇到出狀況，你反而會冷靜下來、快速找到解法。壓力對你是啟動開關，不是威脅。",
     strengths:["臨場應變快","抗壓性高","危機時刻的定海神針"],
     watch:"平時如果沒有壓力，容易拖延，可以幫自己設一些小的緊迫感。",
     roles:"談判、客戶服務、供應鏈突發應變、緊急採購處理",
-    compat:"平時不用一直盯進度，緊急狀況出現時把他推上前線就對了；給他多一點決策空間，他會處理得比你想像中好。",
-    traits:[2,3,3,4,5,2],
     gradient:["#F4A9A8","#D9622B"] },
   social:{ emoji:"🍩", title:"團隊發光型", subtitle:"分享款待人格",
     desc:"對你來說，成果的意義是在被別人看見、被使用的那一刻才完整。你做事會不自覺考慮到其他人的感受跟反應。",
     strengths:["人際敏感度高","擅長凝聚團隊","天生的溝通橋樑"],
     watch:"太在意別人的評價，有時候會讓你猶豫該不該堅持自己的判斷。",
     roles:"業務、公關、內部溝通協調、商務談判",
-    compat:"多讓他參與對外溝通或跨部門的場合，他會做得很起勁；私下給予情緒支持，他其實很在意別人怎麼看他。",
-    traits:[3,3,5,3,3,2],
     gradient:["#FFD1D6","#D97B85"] },
   support:{ emoji:"🍞", title:"默默支援型", subtitle:"吐司底座人格",
     desc:"你不一定站在最前面，但整個團隊少了你會很快亂掉。你在意的是事情有沒有真的被做好，而不是誰看到了。",
     strengths:["可靠度極高","願意做吃力不討好的事","團隊的穩定基礎"],
     watch:"太少表達自己的貢獻，容易被忽略，可以練習適度讓人看見你的努力。",
     roles:"行政後勤、財務支援、內部作業、流程執行",
-    compat:"主動看見並說出他的貢獻，他不會自己邀功；交辦瑣碎但重要的事情給他，會做得比誰都仔細。",
-    traits:[4,2,2,4,3,3],
     gradient:["#EAD9A0","#B08D5C"] },
   detail:{ emoji:"🍮", title:"細節控制型", subtitle:"布丁精修人格",
     desc:"差一點就是不行。你對品質有近乎直覺的敏感度，能看到別人容易忽略的小問題，也因此常是最後一道把關的人。",
     strengths:["精準度高","容錯率低","品質最後防線"],
     watch:"太執著於完美可能拖慢速度，練習判斷哪些細節真的值得花時間。",
     roles:"品質控管、合約審核、財會、驗收把關",
-    compat:"重要文件、合約交給他把關會很放心；但別在時間緊迫時才丟給他，他需要足夠時間才能發揮細膩度。",
-    traits:[4,2,2,3,3,5],
     gradient:["#F7E7A0","#C7A03E"] },
   integrate:{ emoji:"🥐", title:"資源整合型", subtitle:"千層可頌人格",
     desc:"你擅長的不是單打獨鬥，而是看清楚誰擅長什麼、怎麼把不同的人跟資源兜在一起，讓整件事順暢地跑起來。",
     strengths:["跨部門溝通強","擅長分工與調度","把複雜的事理順"],
     watch:"容易把太多協調工作攬在自己身上，記得也要幫自己留時間喘口氣。",
     roles:"專案協調、供應鏈管理、跨部門溝通、資源調度",
-    compat:"有跨部門或需要協調多方的任務找他就對了；記得主動關心他，他常把協調別人的需求放在自己前面。",
-    traits:[3,3,4,4,3,3],
     gradient:["#BFD8EE","#6B8CAE"] },
   strategist:{ emoji:"🍫", title:"戰略布局型", subtitle:"提拉米蘇人格",
     desc:"你做每件事之前，習慣先想清楚『為什麼做』跟『做給誰看』。比起把眼前的步驟做完，你更在意這件事在更大的藍圖裡佔什麼位置。",
     strengths:["看得到全局","擅長設定優先順序","決策前想得比別人遠"],
     watch:"有時候想太多反而遲遲不動手，記得有些答案只有做了才會知道。",
     roles:"策略規劃、專案負責人、供應商年度合約談判、跨年度採購布局",
-    compat:"重大決策前先找他討論方向，他會幫你想清楚全局；別催他馬上給答案，他需要時間沙盤推演。",
-    traits:[4,3,2,3,3,4],
     gradient:["#D9AAB8","#6B3F4D"] }
 };
-
-const TRAIT_LABELS = ["穩定度","創意力","社交力","執行力","抗壓性","細膩度"];
-
-function radarSVG(traits, colorMain){
-  const cx=110, cy=104, radius=76;
-  const n = TRAIT_LABELS.length;
-  const angleStep = (Math.PI*2)/n;
-  const pointAt = (i, r) => {
-    const angle = -Math.PI/2 + i*angleStep;
-    return [cx + r*Math.cos(angle), cy + r*Math.sin(angle)];
-  };
-  let grid = '';
-  for(let ring=1; ring<=4; ring++){
-    const r = radius*(ring/4);
-    const pts = TRAIT_LABELS.map((_,i)=> pointAt(i,r).join(',')).join(' ');
-    grid += `<polygon points="${pts}" fill="none" stroke="#E7DCC9" stroke-width="1"/>`;
-  }
-  const axisLines = TRAIT_LABELS.map((_,i)=>{
-    const [x,y] = pointAt(i, radius);
-    return `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#E7DCC9" stroke-width="1"/>`;
-  }).join('');
-  const dataPts = traits.map((v,i)=> pointAt(i, radius*(v/5)).join(',')).join(' ');
-  const labels = TRAIT_LABELS.map((label,i)=>{
-    const [x,y] = pointAt(i, radius+20);
-    return `<text x="${x}" y="${y}" font-size="11" fill="#5C4E3F" text-anchor="middle" dominant-baseline="middle">${label}</text>`;
-  }).join('');
-  return `<svg viewBox="0 0 220 210" width="220" height="210">
-    ${grid}${axisLines}
-    <polygon points="${dataPts}" fill="${colorMain}55" stroke="${colorMain}" stroke-width="2"/>
-    ${labels}
-  </svg>`;
-}
 
 function initScores(){
   return { steady:0, creative:0, crisis:0, social:0, support:0, detail:0, integrate:0, strategist:0 };
@@ -353,10 +302,6 @@ function renderResult(){
       <div class="rsubtitle">${r.subtitle}</div>
       <p class="rdesc">${r.desc}</p>
       <div class="block">
-        <div class="block-title">📊 能力特質雷達圖</div>
-        <div class="radar-wrap">${radarSVG(r.traits, r.gradient[1])}</div>
-      </div>
-      <div class="block">
         <div class="block-title">💪 你的強項</div>
         <ul class="strengths">${r.strengths.map(s=>`<li>${s}</li>`).join('')}</ul>
       </div>
@@ -367,10 +312,6 @@ function renderResult(){
       <div class="block">
         <div class="block-title">🎯 適合角色</div>
         <div class="roles-text">${r.roles}</div>
-      </div>
-      <div class="block compat-box">
-        <div class="block-title">🤝 與他相處的建議</div>
-        <div class="compat-text">${r.compat}</div>
       </div>
       <button class="btn-outline" id="restartBtn">再做一次</button>
     </div>`;
